@@ -43,6 +43,8 @@
 
 @property (nonatomic, weak, readwrite) id <ReaderContentViewDelegate> message;
 
++ (void)setContentPageClass:(Class)class;
+
 - (instancetype)initWithFrame:(CGRect)frame fileURL:(NSURL *)fileURL page:(NSUInteger)page password:(NSString *)phrase;
 
 - (void)showPageThumb:(NSURL *)fileURL page:(NSInteger)page password:(NSString *)phrase guid:(NSString *)guid;

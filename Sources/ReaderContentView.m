@@ -59,12 +59,17 @@
 #define PAGE_THUMB_SMALL 144
 
 static void *ReaderContentViewContext = &ReaderContentViewContext;
+static Class sContentPageClass;
 
 static CGFloat g_BugFixWidthInset = 0.0f;
 
 #pragma mark - Properties
 
 @synthesize message;
+
++ (void)setContentPageClass:(Class)class {
+  sContentPageClass = class;
+}
 
 #pragma mark - ReaderContentView functions
 
@@ -141,7 +146,7 @@ static inline CGFloat zoomScaleThatFits(CGSize target, CGSize source)
 
 		userInterfaceIdiom = [UIDevice currentDevice].userInterfaceIdiom; // User interface idiom
 
-		theContentPage = [[ReaderContentPage alloc] initWithURL:fileURL page:page password:phrase];
+		theContentPage = [[sContentPageClass ? sContentPageClass : ReaderContentPage.class alloc] initWithURL:fileURL page:page password:phrase];
 
 		if (theContentPage != nil) // Must have a valid and initialized content page
 		{
