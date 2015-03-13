@@ -67,10 +67,6 @@ static CGFloat g_BugFixWidthInset = 0.0f;
 
 @synthesize message;
 
-+ (void)setContentPageClass:(Class)class {
-  sContentPageClass = class;
-}
-
 #pragma mark - ReaderContentView functions
 
 static inline CGFloat zoomScaleThatFits(CGSize target, CGSize source)
@@ -101,6 +97,10 @@ static inline CGFloat zoomScaleThatFits(CGSize target, CGSize source)
 			}
 		}
 	}
+}
+
++ (Class)contentPageClass {
+    return ReaderContentPage.class;
 }
 
 #pragma mark - ReaderContentView instance methods
@@ -146,7 +146,7 @@ static inline CGFloat zoomScaleThatFits(CGSize target, CGSize source)
 
 		userInterfaceIdiom = [UIDevice currentDevice].userInterfaceIdiom; // User interface idiom
 
-		theContentPage = [[sContentPageClass ? sContentPageClass : ReaderContentPage.class alloc] initWithURL:fileURL page:page password:phrase];
+		theContentPage = [[[self.class contentPageClass] alloc] initWithURL:fileURL page:page password:phrase];
 
 		if (theContentPage != nil) // Must have a valid and initialized content page
 		{

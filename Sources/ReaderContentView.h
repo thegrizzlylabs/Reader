@@ -44,7 +44,7 @@
 @property (nonatomic, weak, readwrite) id <ReaderContentViewDelegate> message;
 @property (nonatomic, readonly) ReaderContentPage *contentPage;
 
-+ (void)setContentPageClass:(Class)class;
++ (Class)contentPageClass; // can be overridden to use a custom ReaderContentPage subclass
 
 - (instancetype)initWithFrame:(CGRect)frame fileURL:(NSURL *)fileURL page:(NSUInteger)page password:(NSString *)phrase;
 
