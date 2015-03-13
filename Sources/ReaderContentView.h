@@ -42,6 +42,7 @@
 @interface ReaderContentView : UIScrollView
 
 @property (nonatomic, weak, readwrite) id <ReaderContentViewDelegate> message;
+@property (nonatomic, readonly) ReaderContentPage *contentPage;
 
 + (void)setContentPageClass:(Class)class;
 

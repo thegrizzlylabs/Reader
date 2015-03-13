@@ -380,6 +380,10 @@ static inline CGFloat zoomScaleThatFits(CGSize target, CGSize source)
 	[super touchesMoved:touches withEvent:event]; // Message superclass
 }
 
+- (ReaderContentPage *)contentPage {
+  return theContentPage;
+}
+
 @end
 
 #pragma mark -
