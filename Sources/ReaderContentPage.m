@@ -411,7 +411,7 @@
 	if ((self = [super initWithFrame:frame]))
 	{
 		self.autoresizesSubviews = NO;
-		self.userInteractionEnabled = NO;
+		self.userInteractionEnabled = YES;
 		self.contentMode = UIViewContentModeRedraw;
 		self.autoresizingMask = UIViewAutoresizingNone;
 		self.backgroundColor = [UIColor clearColor];
