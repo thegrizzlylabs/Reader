@@ -39,28 +39,38 @@
 
 #pragma mark - ReaderThumbView instance methods
 
+- (void)awakeFromNib {
+	[super awakeFromNib];
+	[self initialize];
+}
+
 - (instancetype)initWithFrame:(CGRect)frame
 {
 	if ((self = [super initWithFrame:frame]))
 	{
-		self.autoresizesSubviews = NO;
-		self.userInteractionEnabled = NO;
-		self.contentMode = UIViewContentModeRedraw;
-		self.autoresizingMask = UIViewAutoresizingNone;
-		self.backgroundColor = [UIColor clearColor];
-
-		imageView = [[UIImageView alloc] initWithFrame:self.bounds];
-
-		imageView.autoresizesSubviews = NO;
-		imageView.userInteractionEnabled = NO;
-		imageView.autoresizingMask = UIViewAutoresizingNone;
-		imageView.contentMode = UIViewContentModeScaleAspectFit;
-
-		[self addSubview:imageView];
+		[self initialize];
 	}
 
 	return self;
 }
+
+- (void)initialize {
+	self.autoresizesSubviews = NO;
+	self.userInteractionEnabled = NO;
+	self.contentMode = UIViewContentModeRedraw;
+	self.autoresizingMask = UIViewAutoresizingNone;
+	self.backgroundColor = [UIColor clearColor];
+
+	imageView = [[UIImageView alloc] initWithFrame:self.bounds];
+
+	imageView.autoresizesSubviews = NO;
+	imageView.userInteractionEnabled = NO;
+	imageView.autoresizingMask = UIViewAutoresizingNone;
+	imageView.contentMode = UIViewContentModeScaleAspectFit;
+
+	[self addSubview:imageView];
+}
+
 
 - (void)showImage:(UIImage *)image
 {
