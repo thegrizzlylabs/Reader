@@ -30,10 +30,6 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-@interface ReaderContentView () <UIScrollViewDelegate>
-
-@end
-
 @implementation ReaderContentView
 {
 	UIView *theContainerView;

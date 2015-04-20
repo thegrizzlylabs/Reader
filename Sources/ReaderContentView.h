@@ -39,7 +39,7 @@
 
 @end
 
-@interface ReaderContentView : UIScrollView
+@interface ReaderContentView : UIScrollView <UIScrollViewDelegate>
 
 @property (nonatomic, weak, readwrite) id <ReaderContentViewDelegate> message;
 @property (nonatomic, readonly) ReaderContentPage *contentPage;
