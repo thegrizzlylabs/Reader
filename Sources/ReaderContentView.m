@@ -55,7 +55,6 @@
 #define PAGE_THUMB_SMALL 144
 
 static void *ReaderContentViewContext = &ReaderContentViewContext;
-static Class sContentPageClass;
 
 static CGFloat g_BugFixWidthInset = 0.0f;
 
