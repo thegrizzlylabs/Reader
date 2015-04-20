@@ -80,6 +80,10 @@
 #endif // end of READER_FLAT_UI Option
 }
 
++ (Class)pagebarThumbClass {
+    return ReaderPagebarThumb.class;
+}
+
 #pragma mark - ReaderMainPagebar instance methods
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -275,7 +279,7 @@
 
 		CGRect thumbRect = CGRectMake(thumbX, thumbY, THUMB_LARGE_WIDTH, THUMB_LARGE_HEIGHT);
 
-		pageThumbView = [[ReaderPagebarThumb alloc] initWithFrame:thumbRect]; // Create the thumb view
+		pageThumbView = [[[self.class pagebarThumbClass] alloc] initWithFrame:thumbRect]; // Create the thumb view
 
 		pageThumbView.layer.zPosition = 1.0f; // Z position so that it sits on top of the small thumbs
 
@@ -310,7 +314,7 @@
 
 			NSURL *fileURL = document.fileURL; NSString *guid = document.guid; NSString *phrase = document.password;
 
-			smallThumbView = [[ReaderPagebarThumb alloc] initWithFrame:thumbRect small:YES]; // Create a small thumb view
+			smallThumbView = [[[self.class pagebarThumbClass] alloc] initWithFrame:thumbRect small:YES]; // Create a small thumb view
 
 			ReaderThumbRequest *thumbRequest = [ReaderThumbRequest newForView:smallThumbView fileURL:fileURL password:phrase guid:guid page:page size:size];
 

@@ -51,6 +51,8 @@
 - (void)hidePagebar;
 - (void)showPagebar;
 
++ (Class)pagebarThumbClass;
+
 @end
 
 #pragma mark -
