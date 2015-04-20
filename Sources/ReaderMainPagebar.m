@@ -115,7 +115,7 @@
 		}
 	}
 
-	if (page != pageThumbView.tag) // Only if page number changed
+	if (pageThumbView && page != pageThumbView.tag) // Only if page number changed
 	{
 		pageThumbView.tag = page; [pageThumbView reuse]; // Reuse the thumb view
 
