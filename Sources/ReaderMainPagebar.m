@@ -68,6 +68,7 @@
 #pragma mark - Properties
 
 @synthesize delegate;
+@synthesize pageNumberView = pageNumberView;
 
 #pragma mark - ReaderMainPagebar class methods
 

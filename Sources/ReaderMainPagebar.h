@@ -43,6 +43,7 @@
 @interface ReaderMainPagebar : UIView
 
 @property (nonatomic, weak, readwrite) id <ReaderMainPagebarDelegate> delegate;
+@property (nonatomic, strong) UIView *pageNumberView;
 
 - (instancetype)initWithFrame:(CGRect)frame document:(ReaderDocument *)object;
 
