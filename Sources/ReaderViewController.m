@@ -583,13 +583,14 @@
 							url = [NSURL URLWithString:http]; // Proper http-based URL
 						}
 					}
-
+#if !defined(RDR_APP_EXTENSIONS)
 					if ([[UIApplication sharedApplication] openURL:url] == NO)
 					{
 						#ifdef DEBUG
 							NSLog(@"%s '%@'", __FUNCTION__, url); // Bad or unknown URL
 						#endif
 					}
+#endif
 				}
 				else // Not a URL, so check for another possible object type
 				{
