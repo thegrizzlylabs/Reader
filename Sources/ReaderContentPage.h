@@ -31,6 +31,7 @@
 
 - (id)processSingleTap:(UITapGestureRecognizer *)recognizer;
 
++ (CGRect)effectiveRectForPage:(CGPDFPageRef)PDFPageRef;
 @end
 
 #pragma mark -
@@ -46,5 +47,4 @@
 @property (nonatomic, assign, readonly) CGPDFDictionaryRef dictionary;
 
 + (instancetype)newWithRect:(CGRect)linkRect dictionary:(CGPDFDictionaryRef)linkDictionary;
-
 @end

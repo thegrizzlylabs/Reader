@@ -420,6 +420,41 @@
 	return self;
 }
 
++ (CGRect)effectiveRectForPage:(CGPDFPageRef)PDFPageRef {
+    CGPDFPageRetain(PDFPageRef);
+    CGRect cropBoxRect = CGPDFPageGetBoxRect(PDFPageRef, kCGPDFCropBox);
+    CGRect mediaBoxRect = CGPDFPageGetBoxRect(PDFPageRef, kCGPDFMediaBox);
+    CGRect effectiveRect = CGRectIntersection(cropBoxRect, mediaBoxRect);
+    NSInteger pageAngle = CGPDFPageGetRotationAngle(PDFPageRef); // Angle in degrees
+
+    NSInteger page_w = 0;
+    NSInteger page_h = 0;
+    CGFloat pageOffsetX = 0;
+    CGFloat pageOffsetY = 0;
+    switch (pageAngle) {
+        default:
+        case 0:
+        case 180: {
+            page_w = effectiveRect.size.width;
+            page_h = effectiveRect.size.height;
+            pageOffsetX = effectiveRect.origin.x;
+            pageOffsetY = effectiveRect.origin.y;
+            break;
+        }
+
+        case 90:
+        case 270: {
+            page_w = effectiveRect.size.height;
+            page_h = effectiveRect.size.width;
+            pageOffsetX = effectiveRect.origin.y;
+            pageOffsetY = effectiveRect.origin.x;
+            break;
+        }
+    }
+    
+    return CGRectMake(pageOffsetX, pageOffsetY, page_w, page_h);
+}
+
 - (instancetype)initWithURL:(NSURL *)fileURL page:(NSInteger)page password:(NSString *)phrase
 {
 	CGRect viewRect = CGRectZero; // View rect
@@ -440,42 +475,22 @@
 
 			if (_PDFPageRef != NULL) // Check for non-NULL CGPDFPageRef
 			{
-				CGPDFPageRetain(_PDFPageRef); // Retain the PDF page
-
-				CGRect cropBoxRect = CGPDFPageGetBoxRect(_PDFPageRef, kCGPDFCropBox);
-				CGRect mediaBoxRect = CGPDFPageGetBoxRect(_PDFPageRef, kCGPDFMediaBox);
-				CGRect effectiveRect = CGRectIntersection(cropBoxRect, mediaBoxRect);
-
-				_pageAngle = CGPDFPageGetRotationAngle(_PDFPageRef); // Angle
-
-				switch (_pageAngle) // Page rotation angle (in degrees)
-				{
-					default: // Default case
-					case 0: case 180: // 0 and 180 degrees
-					{
-						_pageWidth = effectiveRect.size.width;
-						_pageHeight = effectiveRect.size.height;
-						_pageOffsetX = effectiveRect.origin.x;
-						_pageOffsetY = effectiveRect.origin.y;
-						break;
-					}
-
-					case 90: case 270: // 90 and 270 degrees
-					{
-						_pageWidth = effectiveRect.size.height;
-						_pageHeight = effectiveRect.size.width;
-						_pageOffsetX = effectiveRect.origin.y;
-						_pageOffsetY = effectiveRect.origin.x;
-						break;
-					}
-				}
-
-				NSInteger page_w = _pageWidth; // Integer width
-				NSInteger page_h = _pageHeight; // Integer height
-
-				if (page_w % 2) page_w--; if (page_h % 2) page_h--; // Even
-
-				viewRect.size = CGSizeMake(page_w, page_h); // View size
+                _pageAngle = CGPDFPageGetRotationAngle(_PDFPageRef); // Angle in degrees
+                CGRect effectiveRect = [self.class effectiveRectForPage:_PDFPageRef];
+                _pageOffsetX = CGRectGetMinX(effectiveRect);
+                _pageOffsetY = CGRectGetMinY(effectiveRect);
+                _pageWidth = CGRectGetWidth(effectiveRect);
+                _pageHeight = CGRectGetHeight(effectiveRect);
+                NSInteger page_w = _pageWidth;
+                NSInteger page_h = _pageHeight;
+                // Use even values
+                if (page_w % 2) {
+                    page_w--;
+                }
+                if (page_h % 2) {
+                    page_h--;
+                }
+                viewRect.size = CGSizeMake(page_w, page_h);
 			}
 			else // Error out with a diagnostic
 			{
