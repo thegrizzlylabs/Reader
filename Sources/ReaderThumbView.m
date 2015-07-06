@@ -61,7 +61,7 @@
 	self.autoresizingMask = UIViewAutoresizingNone;
 	self.backgroundColor = [UIColor clearColor];
 
-	imageView = [[UIImageView alloc] initWithFrame:self.bounds];
+	imageView = [[[self.class imageViewClass] alloc] initWithFrame:self.bounds];
 
 	imageView.autoresizesSubviews = NO;
 	imageView.userInteractionEnabled = NO;
@@ -71,6 +71,9 @@
 	[self addSubview:imageView];
 }
 
++ (Class)imageViewClass {
+    return UIImageView.class;
+}
 
 - (void)showImage:(UIImage *)image
 {
