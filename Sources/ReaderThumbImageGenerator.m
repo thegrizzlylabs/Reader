@@ -71,15 +71,6 @@
 
             target_w *= request.scale; target_h *= request.scale; // Screen scale
 
-            if (target_w * request.scale > page_w || target_h * request.scale > page_h) {
-                // Make sure that the thumbnail is not bigger than the page:
-                // - there is no use for a bigger thumbnail
-                // - it can lead to graphical glitches when transitioning from a thumbnail to the actual page
-                CGFloat smallerScale = MIN(target_w * request.scale/ page_w, target_h * request.scale / page_h);
-                target_w /= smallerScale;
-                target_h /= smallerScale;
-            }
-
             CGColorSpaceRef rgb = CGColorSpaceCreateDeviceRGB(); // RGB color space
 
             CGBitmapInfo bmi = (kCGBitmapByteOrder32Little | kCGImageAlphaNoneSkipFirst);
